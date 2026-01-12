@@ -9,12 +9,10 @@ require('dotenv').config();
 const Article = require('../models/Article');
 
 const MONGO_URI = process.env.MONGO_URI;
-// const DATA_FILE = path.join(__dirname, '../../data/articles.json'); // Legacy
 const INDEX_FILE = path.join(__dirname, '../faiss/index.json');
 const SAFETY_INTENTS_FILE = path.join(__dirname, '../safety/unsafe_intents.json');
 const SAFETY_INDEX_FILE = path.join(__dirname, '../safety/safety_index.json');
 
-// Configuration
 const CHUNK_SIZE = 500;
 const MODEL_NAME = 'Xenova/all-MiniLM-L6-v2';
 
@@ -46,12 +44,6 @@ async function main() {
       const chunkText = text.slice(i, i + CHUNK_SIZE);
       if (chunkText.length < 50) continue; // Skip very small chunks
 
-      // Generate embedding
-      // pipeline returns a Tensor. The .data property holds the Float32Array
-      // We need mean pooling or just cls token? 
-      // sentence-transformers typically use mean pooling.
-      // specific to Xenova/transformers: output is [batch, seq_len, hidden].
-      // We will simple use the standard output handling: 
       const output = await extractor(chunkText, { pooling: 'mean', normalize: true });
       const embedding = Array.from(output.data);
 
