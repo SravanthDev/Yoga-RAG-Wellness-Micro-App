@@ -48,7 +48,7 @@ function App() {
       <div className="glass-panel">
         <div className="header">
           <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'center', marginBottom: '10px' }}>
-            <Sparkles color="#8B9A6B" size={32} />
+            <Sparkles color="#2F8F83" size={32} />
             <h1>Yoga RAG Wellness</h1>
           </div>
           <p>Ask anything about yoga practice, philosophy, and safety.</p>
