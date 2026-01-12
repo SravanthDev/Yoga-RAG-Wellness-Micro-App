@@ -47,11 +47,8 @@ function App() {
     <div className="app-container">
       <div className="glass-panel">
         <div className="header">
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', alignItems: 'center', marginBottom: '10px' }}>
-            <Wind color="#C68642" size={40} strokeWidth={1.5} />
-            <h1>YogaSense</h1>
-          </div>
-          <p>Ask anything about yoga practice, philosophy, and safety.</p>
+          <h1>YogaSense</h1>
+          <p>Thoughtful answers for mindful practice</p>
         </div>
 
         <form onSubmit={handleAsk} className="input-group">
