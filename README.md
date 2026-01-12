@@ -1,126 +1,108 @@
+# YogaSense
 
-# 🧘 Ask Me Anything About Yoga – RAG Wellness Micro-App
+## Project Overview
 
-A production-ready full-stack AI application providing yoga wellness advice using Retrieval-Augmented Generation (RAG).
-Built with **React (Vite)**, **Node.js/Express**, **FAISS (Local)**, **MongoDB**, and **OpenAI**.
+YogaSense is a Retrieval-Augmented Generation (RAG) web application designed to answer yoga-related queries using a controlled and verified knowledge base. Unlike general-purpose chatbots, YogaSense is engineered to stay strictly grounded in its provided data, ensuring that responses are safe, reliable, and context-specific.
 
----
-
-## 🏗 Architecture
-
-### High-Level Flow
-1. **User Query** → Frontend → Backend API (`/ask`).
-2. **Safety Check** (Hybrid):
-   - **Layer 1**: Regex match for medical keywords (pregnancy, surgery, etc.).
-   - **Layer 2**: Semantic similarity check against `unsafe_intents` index.
-3. **Retrieval** (If Safe):
-   - Query is embedded (via `Xenova/all-MiniLM-L6-v2`).
-   - Search performing in local FAISS-style vector index.
-   - Top 3 relevant chunks retrieved.
-4. **Generation**:
-   - Prompt constructed with Context + Query.
-   - Sent to LLM (Gemini 1.5 Flash).
-5. **Logging**:
-   - Query, Answer, Safety Flags, and Feedback stored in MongoDB.
-
-### Folder Structure
-```
-/frontend          # React Client (Vite)
-/backend           # Node.js Express Server
-  /rag             # Retrieval Logic
-  /safety          # Guardrails Logic
-  /faiss           # Generated Vector Index
-  /models          # MongoDB Schemas
-  /scripts         # Offline Build Scripts
-/data              # Source Yoga Articles
-```
+The primary objective of this project was to explore the intersection of RAG and wellness. In this domain, providing an answer isn't always the goal; sometimes, recognizing that a question is unsafe or outside the system's knowledge is the correct and necessary outcome.
 
 ---
 
-## 🛡 Safety System (Hybrid)
-
-To prevent medical malpractice, a generic "refusal" is not enough. We use a proactive two-layer system:
-
-1. **Rule-Based (Regex)**: Instant blocking of high-risk keywords like "glaucoma", "hernia", "post-op".
-2. **Semantic Detection**: The query embedding is compared against a pre-computed list of unsafe queries (e.g., "yoga for cancer cure"). If similarity > 0.6, it is flagged.
-
-If **Unsafe**:
-- The prompt is switched to `Unsafe Mode`.
-- The AI is instructed to validate feelings but **refuse medical advice** and suggest professional help.
-
----
-
-## 🚀 How to Run Locally
+## Setup Steps (Local)
 
 ### Prerequisites
-- Node.js (v18+)
-- MongoDB (Running locally)
-- OpenAI API Key
+- Node.js (v18 or above)
+- MongoDB (Local instance or MongoDB Atlas)
 
-### 1. Setup Backend
-```bash
-cd backend
-npm install
-# Create .env file
-cp .env.example .env 
-# Add your OPENAI_API_KEY in .env
+### Backend Setup
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   npm install
+   ```
+
+2. Create a `.env` file in the `backend` folder and configure the following variables:
+   ```env
+   PORT=5001
+   MONGO_URI=your_mongodb_connection_string
+   OPENAI_API_KEY=your_openai_api_key
+   ```
+
+3. Build the vector index from the database:
+   ```bash
+   npm run build-index
+   ```
+
+4. Start the server:
+   ```bash
+   npm start
+   ```
+
+### Frontend Setup
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## RAG Pipeline (Design Explanation)
+
+The RAG pipeline in YogaSense is designed for precision and constraint.
+
+1. **Embedding and Retrieval**: When a query is submitted, it is converted into a vector embedding. The system then performs a similarity search against a FAISS vector database to retrieve the most relevant chunks from the yoga knowledge base.
+2. **Contextual Constraints**: Only the retrieved chunks are passed to the language model. The model is explicitly instructed to rely solely on this context.
+3. **Intentional "I Don't Know"**: If the retrieval step does not yield relevant high-confidence matches, the system is programmed to state that it does not know. This prevents hallucinations, which is critical in a wellness context.
+4. **Focused Chunking**: Knowledge is split into small, specific chunks to ensure high retrieval accuracy and to avoid domesticating the model with unrelated information.
+
+---
+
+## Safety Logic (Why It Was Designed This Way)
+
+Safety is implemented as a multi-stage hybrid system to ensure maximum reliability.
+
+1. **Keyword-Based Filtering**: A fast, rule-based layer that identifies explicit risk signals (e.g., mentions of surgeries, acute injuries, or specific medical conditions).
+2. **Semantic Safety Check**: A secondary layer that uses machine learning to compare the user's intent with a database of known unsafe scenarios. This catches implicit risks that keyword filters might miss.
+
+This hybrid approach was chosen because it combines the predictability of rules with the flexibility of semantic understanding. When a query is flagged as unsafe:
+- The system provides a conservative, high-level summary.
+- The UI displays a clear safety notice.
+- The user is advised to seek professional medical supervision.
+
+---
+
+## Data Models
+
+### Knowledge Chunk
+```json
+{
+  "id": "asana_shavasana_relaxation",
+  "title": "Shavasana: The Foundation of Deep Relaxation",
+  "category": "asana",
+  "content": "Description of the pose and its physiological benefits..."
+}
 ```
 
-### 2. Build Offline Index (RAG)
-We do not embed usually at runtime. We pre-build the index.
-```bash
-# From backend directory
-node scripts/build_index.js
-```
-*This will generate `backend/faiss/index.json` and `backend/safety/safety_index.json`.*
-
-### 3. Start Server
-```bash
-# In backend/
-npm start
-# Server runs on http://localhost:5001
-```
-
-### 4. Setup Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-# App runs on http://localhost:5173
+### Query Log
+All interactions are logged to MongoDB for monitoring and debugging safety thresholds.
+```json
+{
+  "query": "Is headstand safe for high blood pressure?",
+  "retrievedSources": ["asana_inversions_intro"],
+  "answer": "Answer including safety precautions...",
+  "isUnsafe": true,
+  "timestamp": "2026-01-12T10:15:00Z"
+}
 ```
 
 ---
 
-## 🧠 RAG Details
+## Final Note
 
-- **Chunking**: Articles are split into 500-character chunks to preserve context window.
-- **Embeddings**: Local `all-MiniLM-L6-v2` (runs on CPU/Node).
-- **Storage**: JSON-based vector storage for portability (simulating FAISS flat index).
-- **Retrieval**: Cosine similarity search.
-
----
-
-## 📝 MongoDB Schema
-
-**Log Collection:**
-- `query`: String
-- `answer`: String
-- `sources`: Array[String]
-- `isUnsafe`: Boolean
-- `unsafeReasons`: Array[String]
-- `feedback`: String ('up' | 'down')
-- `timestamp`: Date
-
----
-
-## 🤖 Prompts
-
-**Safe Prompt:**
-> "You are a knowledgeable Yoga Wellness Assistant. Answer the user's question using ONLY the provided context snippets..."
-
-**Unsafe Prompt:**
-> "You are a careful AI assistant... strictly REFUSE to give medical advice... Suggest they consult a doctor..."
-
----
-
-*This project was built for an internship evaluation, strictly adhering to all architectural constraints.*
+YogaSense demonstrates that for wellness applications, robustness is defined by the system's ability to remain within its boundaries. The design prioritizes transparency, retrieval accuracy, and safety over the broad but unpredictable capabilities of standard LLMs.
