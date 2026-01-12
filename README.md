@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-YogaSense is a Retrieval-Augmented Generation (RAG) web application designed to answer yoga-related queries using a controlled and verified knowledge base. Unlike general-purpose chatbots, YogaSense is engineered to stay strictly grounded in its provided data, ensuring that responses are safe, reliable, and context-specific.
+This project is a small RAG-based yoga question–answering system focused on correctness and safety rather than answering every question confidently. While language models can generate yoga advice without context, such responses can be unreliable or unsafe in a wellness setting.
 
-The primary objective of this project was to explore the intersection of RAG and wellness. In this domain, providing an answer isn't always the goal; sometimes, recognizing that a question is unsafe or outside the system's knowledge is the correct and necessary outcome.
+The system is intentionally designed to stay grounded in retrieved data and to respond cautiously when a query involves potential risk. In some cases, recognizing that a question cannot or should not be answered is treated as the correct outcome.
 
 ---
 
