@@ -1,5 +1,5 @@
 node_modules/
-.env
+# .env (removed from ignore per user request)
 .DS_Store
 dist/
 .npm/
