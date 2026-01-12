@@ -1,31 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
 
 :root {
-  --bg-color: #F1F5F4;
-  --bg-gradient: linear-gradient(180deg, #F1F5F4, #E9F2EF);
-  --card-bg: #FFFFFF;
-  --card-secondary-bg: #EDF6F3;
-  --divider-color: #D3E2DD;
-  --text-primary: #1E2D2F;
-  --text-secondary: #556B70;
-  --text-muted: #8AA1A6;
-  --primary: #2FA4A9;
-  --primary-hover: #268F93;
-  --primary-active: #1F777B;
-  --secondary-accent: #F2B705;
-  --secondary-soft: #FFF3CC;
-  --tertiary-accent: #D98C8C;
-  --tertiary-soft: #F6EAEA;
-  --warning-bg: #F8E3E3;
-  --warning-border: #D66A6A;
-  --warning-text: #8F2E2E;
-  --success-bg: #E6F4EE;
-  --success-text: #1F7A5A;
-  --info-bg: #EAF4FA;
-  --info-border: #9CCAE0;
-  --radius-card: 12px;
-  --radius-button: 10px;
-  --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.04);
+  --page-bg: #3D4A3E;
+  /* Deep Sage Stone */
+  --container-bg: #D9E3DA;
+  /* Soft Sage Clay */
+  --bot-card-bg: #FDF8E1;
+  /* Light Warm Sand */
+  --accent-gold: #C68642;
+  /* Warm Earthy Gold */
+  --accent-gold-hover: #AF753A;
+  --source-pill-bg: #E1EAD8;
+  /* Soft Green Pill */
+  --source-pill-text: #4B5945;
+  --warning-amber: #DEB887;
+  /* Muted Amber */
+  --text-primary: #2C352D;
+  /* Dark Moss */
+  --text-secondary: #5C6B5E;
+  --divider-color: rgba(61, 74, 62, 0.1);
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --shadow-subtle: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
 * {
@@ -36,13 +32,13 @@
 
 body {
   font-family: 'Outfit', sans-serif;
-  background: var(--bg-gradient);
+  background-color: var(--page-bg);
   color: var(--text-primary);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
+  padding: 20px;
 }
 
 #root {
@@ -52,12 +48,11 @@ body {
 }
 
 .glass-panel {
-  background-color: var(--card-bg);
-  border: 1px solid var(--divider-color);
+  background-color: var(--container-bg);
   border-radius: var(--radius-card);
   padding: 2.5rem;
   box-shadow: var(--shadow-subtle);
-  transition: transform 0.3s ease;
+  width: 100%;
 }
 
 .header {
@@ -91,17 +86,12 @@ body {
   color: var(--text-primary);
   font-size: 1.05rem;
   font-family: 'Outfit', sans-serif;
-  transition: all 0.2s ease;
-}
-
-.query-input::placeholder {
-  color: var(--text-placeholder);
 }
 
 .query-input:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--secondary-soft);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 4px rgba(198, 134, 66, 0.2);
 }
 
 .ask-btn {
@@ -109,25 +99,21 @@ body {
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background-color: var(--primary);
+  background-color: var(--accent-gold);
   border: none;
   color: white;
   padding: 0.7rem;
   border-radius: var(--radius-button);
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .ask-btn:hover {
-  background-color: var(--primary-hover);
-}
-
-.ask-btn:active {
-  background-color: var(--primary-active);
-  transform: translateY(-50%) scale(0.98);
+  background-color: var(--accent-gold-hover);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .ask-btn:disabled {
@@ -156,9 +142,9 @@ body {
 }
 
 .unsafe-banner {
-  background-color: var(--warning-bg);
-  border: 1px solid var(--warning-border);
-  color: var(--warning-text);
+  background-color: var(--warning-amber);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: #5D4037;
   padding: 1.2rem;
   border-radius: var(--radius-card);
   margin-bottom: 1.5rem;
@@ -168,14 +154,13 @@ body {
 }
 
 .answer-card {
-  background-color: white;
-  border: 1px solid var(--divider-color);
+  background-color: var(--bot-card-bg);
   border-radius: var(--radius-card);
   padding: 2rem;
   line-height: 1.8;
   font-size: 1.05rem;
   color: var(--text-primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
 .sources-section {
@@ -195,15 +180,14 @@ body {
 
 .source-tag {
   display: inline-block;
-  background-color: var(--card-secondary-bg);
-  color: var(--success-text);
+  background-color: var(--source-pill-bg);
+  color: var(--source-pill-text);
   padding: 0.4rem 1.2rem;
-  border-radius: 20px;
+  border-radius: 30px;
   font-size: 0.85rem;
   font-weight: 500;
   margin-right: 0.6rem;
   margin-bottom: 0.6rem;
-  border: 1px solid var(--divider-color);
 }
 
 .feedback-section {
@@ -228,14 +212,13 @@ body {
 }
 
 .feedback-btn:hover {
-  background-color: var(--bg-color);
-  border-color: var(--primary);
-  color: var(--primary);
+  background-color: var(--accent-gold);
+  color: white;
 }
 
 .feedback-btn.active {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--accent-gold);
+  border-color: var(--accent-gold);
   color: white;
 }
 
