@@ -117,7 +117,7 @@ All interactions are logged to MongoDB for monitoring and debugging safety thres
 
 ## Prompts Used During Development
 
-AI tools were used during development mainly to **think through edge cases, implementation details, and trade-offs** while building the system. The goal was to move faster during execution and validate decisions.
+AI IDE help was taken during development mainly to **think through edge cases, implementation details, and trade-offs** while building the system. The goal was to move faster during execution and validate decisions.
 
 Below is a list of prompts used during development.
 
