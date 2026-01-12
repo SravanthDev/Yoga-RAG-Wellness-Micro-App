@@ -1,22 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
 
 :root {
-  --bg-color: #F4F7F5;
+  --bg-color: #F1F5F4;
+  --bg-gradient: linear-gradient(180deg, #F1F5F4, #E9F2EF);
   --card-bg: #FFFFFF;
-  --card-secondary-bg: #EEF5F2;
-  --divider-color: #DDE5E2;
-  --text-primary: #1C2B2D;
-  --text-secondary: #5E6E73;
-  --text-placeholder: #8A9A9E;
-  --primary: #2F8F83;
-  --primary-hover: #257A70;
-  --primary-active: #1F655D;
-  --accent-light: #BFDAD5;
-  --warning-bg: #F6DADA;
-  --warning-border: #D16C6C;
-  --warning-text: #8A2F2F;
-  --info-bg: #E6F2F1;
-  --success-text: #256F5A;
+  --card-secondary-bg: #EDF6F3;
+  --divider-color: #D3E2DD;
+  --text-primary: #1E2D2F;
+  --text-secondary: #556B70;
+  --text-muted: #8AA1A6;
+  --primary: #2FA4A9;
+  --primary-hover: #268F93;
+  --primary-active: #1F777B;
+  --secondary-accent: #F2B705;
+  --secondary-soft: #FFF3CC;
+  --tertiary-accent: #D98C8C;
+  --tertiary-soft: #F6EAEA;
+  --warning-bg: #F8E3E3;
+  --warning-border: #D66A6A;
+  --warning-text: #8F2E2E;
+  --success-bg: #E6F4EE;
+  --success-text: #1F7A5A;
+  --info-bg: #EAF4FA;
+  --info-border: #9CCAE0;
   --radius-card: 12px;
   --radius-button: 10px;
   --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.04);
@@ -30,7 +36,7 @@
 
 body {
   font-family: 'Outfit', sans-serif;
-  background-color: var(--bg-color);
+  background: var(--bg-gradient);
   color: var(--text-primary);
   min-height: 100vh;
   display: flex;
@@ -95,7 +101,7 @@ body {
 .query-input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--accent-light);
+  box-shadow: 0 0 0 4px var(--secondary-soft);
 }
 
 .ask-btn {
@@ -189,7 +195,7 @@ body {
 
 .source-tag {
   display: inline-block;
-  background-color: var(--info-bg);
+  background-color: var(--card-secondary-bg);
   color: var(--success-text);
   padding: 0.4rem 1.2rem;
   border-radius: 20px;
@@ -197,6 +203,7 @@ body {
   font-weight: 500;
   margin-right: 0.6rem;
   margin-bottom: 0.6rem;
+  border: 1px solid var(--divider-color);
 }
 
 .feedback-section {

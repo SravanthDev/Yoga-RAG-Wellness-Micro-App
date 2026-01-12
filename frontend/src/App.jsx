@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Send, AlertTriangle, ThumbsUp, ThumbsDown, Sparkles } from 'lucide-react';
+import { Send, AlertTriangle, ThumbsUp, ThumbsDown, Leaf } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { askQuestion, sendFeedback } from './api';
 
@@ -47,8 +47,8 @@ function App() {
     <div className="app-container">
       <div className="glass-panel">
         <div className="header">
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'center', marginBottom: '10px' }}>
-            <Sparkles color="#2F8F83" size={32} />
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', alignItems: 'center', marginBottom: '10px' }}>
+            <Leaf color="#2FA4A9" size={36} strokeWidth={1.5} />
             <h1>Yoga RAG Wellness</h1>
           </div>
           <p>Ask anything about yoga practice, philosophy, and safety.</p>
