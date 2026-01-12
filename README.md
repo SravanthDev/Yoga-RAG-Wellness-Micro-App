@@ -8,6 +8,18 @@ The primary objective of this project was to explore the intersection of RAG and
 
 ---
 
+## Tech Stack
+
+- **Backend**: Node.js, Express.js
+- **Frontend**: React (Vite), Lucide Icons
+- **Database**: MongoDB (Mongoose), Local FAISS index (JSON)
+- **AI/LLM**: OpenAI GPT-4o-mini
+- **Embeddings**: Transformers.js (locally computed embeddings)
+- **Styling**: Vanilla CSS (Custom properties / Variables)
+- **Deployment**: Render (Backend), Vercel (Frontend)
+
+---
+
 ## Setup Steps (Local)
 
 ### Prerequisites
@@ -75,6 +87,8 @@ This hybrid approach was chosen because it combines the predictability of rules 
 - The UI displays a clear safety notice.
 - The user is advised to seek professional medical supervision.
 
+
+
 ---
 
 ## Data Models
@@ -101,8 +115,55 @@ All interactions are logged to MongoDB for monitoring and debugging safety thres
 }
 ```
 
+
+
 ---
 
-## Final Note
+## Prompts Used During Development
 
-YogaSense demonstrates that for wellness applications, robustness is defined by the system's ability to remain within its boundaries. The design prioritizes transparency, retrieval accuracy, and safety over the broad but unpredictable capabilities of standard LLMs.
+AI tools were used during development mainly to **think through edge cases, implementation details, and trade-offs** while building the system. The goal was to move faster during execution and validate decisions.
+
+Below is a list of prompts used during development.
+
+---
+
+### Dataset Bootstrapping
+
+> I need content to start with, but I don’t want long articles or medical advice...
+> Can you help me generate short yoga notes for poses, benefits, and breathing practices that I can later clean up and rewrite myself
+
+---
+
+### Safety Threshold
+
+> I’m adding semantic similarity for safety checks, but I’m unsure where to draw the line.  
+> What similarity score usually feels “close enough” to confidently flag something as risky without overdoing it..
+
+---
+
+### Hybrid Safety Reasoning
+
+> Keyword checks work for obvious cases, but some risky intent feels indirect.  
+> Can semantic similarity realistically complement keywords without making the safety system too noisy or over-sensitive?
+
+---
+
+### Semantic Safety Implementation
+
+> I know I want to compare the user query against a small list of risk phrases, but I’m unsure about the cleanest way to do this.
+> What’s a simple, maintainable way to compare a query embedding with risk embeddings in a Node.js backend??
+
+---
+
+### Performance Optimization
+
+> I noticed embeddings were getting recomputed more than necessary during requests.  Why? and
+> What’s a good way to reuse embeddings or cache them so this doesn’t become inefficient
+
+---
+
+
+
+
+
+#
