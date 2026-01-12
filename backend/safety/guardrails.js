@@ -37,7 +37,7 @@ function cosineSimilarity(vecA, vecB) {
     return dot / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
-// Check function
+
 function checkSafety(text, embedding) {
     const reasons = [];
     let isUnsafe = false;
@@ -51,15 +51,14 @@ function checkSafety(text, embedding) {
     }
 
     // Layer 2: Checking for "vibes" (semantic meaning) using vectors
-    // If embedding is provided, compare with safetyIndex
     if (embedding && safetyIndex.length > 0) {
         for (const unsafeItem of safetyIndex) {
             const score = cosineSimilarity(embedding, unsafeItem.embedding);
             console.log(`[Safety] "${unsafeItem.text}" similarity: ${score.toFixed(3)}`);
-            if (score > 0.75) { // Threshold increased to avoid false positives for generic queries
+            if (score > 0.75) { 
                 isUnsafe = true;
                 reasons.push(`Semantic match with unsafe intent: "${unsafeItem.text}" (Score: ${score.toFixed(2)})`);
-                break; // One match is enough
+                break; 
             }
         }
     }
