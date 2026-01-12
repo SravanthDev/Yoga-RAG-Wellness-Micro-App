@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Send, AlertTriangle, ThumbsUp, ThumbsDown, Flower2 } from 'lucide-react';
+import { Send, AlertTriangle, ThumbsUp, ThumbsDown, Wind } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { askQuestion, sendFeedback } from './api';
 
@@ -48,8 +48,8 @@ function App() {
       <div className="glass-panel">
         <div className="header">
           <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', alignItems: 'center', marginBottom: '10px' }}>
-            <Flower2 color="#C68642" size={40} strokeWidth={1.5} />
-            <h1>Yoga RAG Wellness</h1>
+            <Wind color="#C68642" size={40} strokeWidth={1.5} />
+            <h1>YogaSense</h1>
           </div>
           <p>Ask anything about yoga practice, philosophy, and safety.</p>
         </div>

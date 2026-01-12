@@ -241,3 +241,54 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 600px) {
+  #root {
+    padding: 1rem;
+  }
+
+  .glass-panel {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .query-input {
+    padding: 0.8rem 3.5rem 0.8rem 1rem;
+    font-size: 1rem;
+  }
+
+  .ask-btn {
+    padding: 0.6rem;
+  }
+
+  .answer-card {
+    padding: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .source-tag {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .feedback-section {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .feedback-btn {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+}
