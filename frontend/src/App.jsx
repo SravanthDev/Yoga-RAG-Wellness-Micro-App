@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Send, AlertTriangle, ThumbsUp, ThumbsDown, Wind } from 'lucide-react';
+import { Send, AlertTriangle, ThumbsUp, ThumbsDown } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { askQuestion, sendFeedback } from './api';
 
