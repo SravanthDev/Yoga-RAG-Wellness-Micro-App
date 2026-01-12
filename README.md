@@ -87,8 +87,6 @@ This hybrid approach was chosen because it combines the predictability of rules 
 - The UI displays a clear safety notice.
 - The user is advised to seek professional medical supervision.
 
-
-
 ---
 
 ## Data Models
@@ -115,55 +113,22 @@ All interactions are logged to MongoDB for monitoring and debugging safety thres
 }
 ```
 
+---
 
+## Key Development Discussions & Prompts
+
+During the development of YogaSense, several key technical and design questions were explored to shape the system using AI assistance:
+
+- **Content Generation**: "I need content to start with, but I don’t want long articles or medical advice. Can you help me generate short yoga notes for poses, benefits, and breathing practices that I can later clean up and rewrite myself?"
+- **Safety Benchmarking**: "I’m adding semantic similarity for safety checks, but I’m unsure where to draw the line. What similarity score usually feels ‘close enough’ to confidently flag something as risky without overdoing it?"
+- **Hybrid Safety Evaluation**: "Keyword checks work for obvious cases, but some risky intent feels indirect. Can semantic similarity realistically complement keywords without making the safety system too noisy or over-sensitive?"
+- **Vector Comparisons**: "I know I want to compare the user query against a small list of risk phrases, but I’m unsure about the cleanest way to do this. What’s a simple, maintainable way to compare a query embedding with risk embeddings in a Node.js backend?"
+- **Performance Optimization**: "I noticed embeddings were getting recomputed more than necessary during requests. What’s a good way to reuse embeddings or cache them so this doesn’t become inefficient?"
 
 ---
 
-## Prompts Used During Development
+## Final Note
 
-AI tools were used during development mainly to **think through edge cases, implementation details, and trade-offs** while building the system. The goal was to move faster during execution and validate decisions.
+YogaSense demonstrates that for wellness applications, robustness is defined by the system's ability to remain within its boundaries. The design prioritizes transparency, retrieval accuracy, and safety over the broad but unpredictable capabilities of standard LLMs.
 
-Below is a list of prompts used during development.
-
----
-
-### Dataset Bootstrapping
-
-> I need content to start with, but I don’t want long articles or medical advice...
-> Can you help me generate short yoga notes for poses, benefits, and breathing practices that I can later clean up and rewrite myself
-
----
-
-### Safety Threshold
-
-> I’m adding semantic similarity for safety checks, but I’m unsure where to draw the line.  
-> What similarity score usually feels “close enough” to confidently flag something as risky without overdoing it..
-
----
-
-### Hybrid Safety Reasoning
-
-> Keyword checks work for obvious cases, but some risky intent feels indirect.  
-> Can semantic similarity realistically complement keywords without making the safety system too noisy or over-sensitive?
-
----
-
-### Semantic Safety Implementation
-
-> I know I want to compare the user query against a small list of risk phrases, but I’m unsure about the cleanest way to do this.
-> What’s a simple, maintainable way to compare a query embedding with risk embeddings in a Node.js backend??
-
----
-
-### Performance Optimization
-
-> I noticed embeddings were getting recomputed more than necessary during requests.  Why? and
-> What’s a good way to reuse embeddings or cache them so this doesn’t become inefficient
-
----
-
-
-
-
-
-#
+AI tools were used during development mainly to **think through edge cases, implementation details, and trade-offs** while building the system. The overall RAG approach and safety-first direction were decided upfront; AI was used to move faster and validate decisions during execution.
