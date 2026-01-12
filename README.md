@@ -153,7 +153,7 @@ Below is a list of prompts used during development.
 
 ### Performance Optimization
 
- I noticed embeddings were getting recomputed more than necessary during requests.  Why? and
+> I noticed embeddings were getting recomputed more than necessary during requests.  Why? and
 > What’s a good way to reuse embeddings or cache them so this doesn’t become inefficient
 
 ---
