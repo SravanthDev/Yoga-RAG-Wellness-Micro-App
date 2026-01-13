@@ -77,15 +77,14 @@ The RAG pipeline in YogaSense is designed for precision and constraint.
 
 ## Safety Logic (Why It Was Designed This Way)
 
-Safety is implemented as a multi-stage hybrid system to ensure maximum reliability.
+While testing the system, I realized that keyword-based safety checks alone were not enough. Some risky yoga questions do not explicitly mention medical terms.
 
-1. **Keyword-Based Filtering**: A fast, rule-based layer that identifies explicit risk signals (e.g., mentions of surgeries, acute injuries, or specific medical conditions).
-2. **Semantic Safety Check**: A secondary layer that uses machine learning to compare the user's intent with a database of known unsafe scenarios. This catches implicit risks that keyword filters might miss.
+To handle this, safety is implemented in two steps.
+First, the system checks for obvious **risk-related keywords**. 
 
-This hybrid approach was chosen because it combines the predictability of rules with the flexibility of semantic understanding. When a query is flagged as unsafe:
-- The system provides a conservative, high-level summary.
-- The UI displays a clear safety notice.
-- The user is advised to seek professional medical supervision.
+Then, it performs a **semantic check** to understand the intent of the query and catch indirect risks.
+
+If a query is flagged as unsafe, the system responds conservatively, shows a clear safety warning in the UI, and advises consulting a qualified professional.
 
 ---
 
@@ -133,7 +132,7 @@ Below is a list of prompts used during development.
 ### Safety Threshold
 
 > I’m adding semantic similarity for safety checks, but I’m unsure where to draw the line.  
-> What similarity score usually feels “close enough” to confidently flag something as risky without overdoing it..
+> What similarity score usually feels close enough to confidently flag something as risky without overdoing it..
 
 ---
 
@@ -157,5 +156,6 @@ Below is a list of prompts used during development.
 > What’s a good way to reuse embeddings or cache them so this doesn’t become inefficient
 
 ---
+### Demo Link
 
-
+https://drive.google.com/file/d/1gRN8FY88Kh3g9C7Nudcf1ZEGZArWnWJI/view?usp=sharing
